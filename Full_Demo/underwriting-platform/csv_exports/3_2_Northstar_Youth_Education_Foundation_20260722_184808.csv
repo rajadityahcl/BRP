@@ -1,0 +1,113 @@
+field,value
+applicant_name,Northstar Youth Education Foundation
+mailing_address,7800 Lakeview Drive
+city_state_zip,"Madison, WI 53703"
+website,www.northstaryouth.example.org
+nature_of_business,"After-school education, mentoring, and college readiness services"
+date_of_formation,08/22/2006
+state_of_formation,WI
+nonprofit_structure,501(c)(3)
+scope,State
+locations_domestic,4
+locations_foreign,0
+members,1250
+chapters,3
+authorized_representative,Marcus Lee
+authorized_rep_title,Executive Director
+phone,608-555-0192
+email,mlee@northstaryouth.example.org
+do_limit_requested,"$1,000,000"
+do_purchased,Yes
+do_current_carrier,Western World
+do_current_limit,"$1,000,000"
+do_expiration,11/15/2026
+epl_limit_requested,"$1,000,000"
+epl_purchased,No
+epl_current_carrier,
+epl_current_limit,
+epl_expiration,
+fiduciary_limit_requested,"$1,000,000"
+fiduciary_purchased,Yes
+fiduciary_current_carrier,Western World
+fiduciary_current_limit,"$500,000"
+fiduciary_expiration,11/15/2026
+cyber_limit_requested,"$500,000"
+cyber_purchased,No
+cyber_current_carrier,
+cyber_current_limit,
+cyber_expiration,
+crime_limit_requested,"$250,000"
+crime_purchased,No
+crime_current_carrier,
+crime_current_limit,
+crime_expiration,
+carrier_refused_canceled_nonrenewed,No
+subsidiary_name,
+subsidiary_structure,
+subsidiary_ownership,
+subsidiary_date,
+subsidiary_operations,
+ma_divestment,No
+change_in_outside_auditor,Yes
+closings_layoffs_workforce_reduction,No
+anticipating_material_changes,No
+board_clevel_changes,2026
+debt_covenant_breach,No
+fiscal_year_end,06/2026
+total_assets,"$3,180,000"
+total_liabilities,"$740,000"
+total_contributions,"$2,280,000"
+total_revenue,"$2,940,000"
+total_expenses,"$2,810,000"
+net_assets_fund_balance,"$2,440,000"
+revenue_federal_contracts_pct,2%
+revenue_state_local_contracts_pct,34%
+full_time_employees,19
+part_time_employees,7
+seasonal_temporary,2
+volunteers,65
+independent_contractors,5
+total_worldwide_employees,26
+total_employees_last_year,24
+workforce_over_100k_pct,8%
+workforce_over_250k_pct,0%
+current_employee_turnover_pct,11%
+prior_year_employee_turnover_pct,9%
+pii_records,
+phi_records,
+financial_account_records,
+approximate_revenue_per_hour,
+number_of_data_centers,
+outage_duration_details,
+general_liability_insurance,Yes
+sells_sponsors_insurance_products,No
+research_testing,No
+certification_standard_setting,No
+creditor_reorganization,No
+do_coverage_desired,Yes
+epl_coverage_desired,No
+hr_department,No
+hr_manual_written_guidelines,Yes
+labor_counsel_reviewed_guidelines,No
+employee_handbook,Yes
+anti_discrimination_harassment_policies,Yes
+formal_complaint_process,Yes
+non_retaliation_policy,Yes
+employment_matters_inhouse_counsel,No
+employment_matters_outside_counsel,Yes
+fiduciary_coverage_desired,Yes
+commercial_crime_coverage_desired,No
+cyber_coverage_desired,No
+annual_risk_assessment,
+confidential_data_encrypted,
+patch_management_process,
+formal_info_security_policy,
+cybersecurity_training,
+business_continuity_plan,
+bcp_tested_annually,
+prior_system_outage,
+declaration_rep_name,Marcus Lee
+declaration_title,Executive Director
+declaration_date,07/06/2026
+declaration_applicant,Northstar Youth Education Foundation
+source_file,3_2_Northstar_Youth_Education_Foundation.pdf

@@ -1,0 +1,113 @@
+field,value
+applicant_name,Harbor Community Health Alliance
+mailing_address,"215 Riverfront Avenue, Suite 400"
+city_state_zip,"Hartford, CT 06103"
+website,www.harborcommunityhealth.example.org
+nature_of_business,"Community health education, patient advocacy, and wellness programs"
+date_of_formation,03/18/2012
+state_of_formation,CT
+nonprofit_structure,501(c)(3)
+scope,Regional
+locations_domestic,8
+locations_foreign,0
+members,0
+chapters,0
+authorized_representative,Elena Martinez
+authorized_rep_title,Chief Financial Officer
+phone,860-555-0148
+email,elena.martinez@harborcommunityhealth.example.org
+do_limit_requested,"$2,000,000"
+do_purchased,Yes
+do_current_carrier,Stratford Insurance
+do_current_limit,"$1,000,000"
+do_expiration,09/30/2026
+epl_limit_requested,"$1,000,000"
+epl_purchased,Yes
+epl_current_carrier,Stratford Insurance
+epl_current_limit,"$1,000,000"
+epl_expiration,09/30/2026
+fiduciary_limit_requested,"$500,000"
+fiduciary_purchased,No
+fiduciary_current_carrier,
+fiduciary_current_limit,
+fiduciary_expiration,
+cyber_limit_requested,"$1,000,000"
+cyber_purchased,Yes
+cyber_current_carrier,Tudor Insurance
+cyber_current_limit,"$1,000,000"
+cyber_expiration,09/30/2026
+crime_limit_requested,"$250,000"
+crime_purchased,No
+crime_current_carrier,
+crime_current_limit,
+crime_expiration,
+carrier_refused_canceled_nonrenewed,No
+subsidiary_name,Harbor Wellness Services LLC
+subsidiary_structure,LLC
+subsidiary_ownership,100%
+subsidiary_date,06/01/2018
+subsidiary_operations,Employee wellness training
+ma_divestment,No
+change_in_outside_auditor,No
+closings_layoffs_workforce_reduction,No
+anticipating_material_changes,No
+board_clevel_changes,No
+debt_covenant_breach,No
+fiscal_year_end,12/2025
+total_assets,"$8,425,000"
+total_liabilities,"$2,130,000"
+total_contributions,"$3,460,000"
+total_revenue,"$7,120,000"
+total_expenses,"$6,840,000"
+net_assets_fund_balance,"$6,295,000"
+revenue_federal_contracts_pct,6%
+revenue_state_local_contracts_pct,18%
+full_time_employees,72
+part_time_employees,14
+seasonal_temporary,4
+volunteers,22
+independent_contractors,8
+total_worldwide_employees,90
+total_employees_last_year,82
+workforce_over_100k_pct,18%
+workforce_over_250k_pct,3%
+current_employee_turnover_pct,14%
+prior_year_employee_turnover_pct,17%
+pii_records,"18,500"
+phi_records,"6,200"
+financial_account_records,"4,100"
+approximate_revenue_per_hour,$812
+number_of_data_centers,0
+outage_duration_details,2 hours in March 2025
+general_liability_insurance,Yes
+sells_sponsors_insurance_products,No
+research_testing,No
+certification_standard_setting,No
+creditor_reorganization,No
+do_coverage_desired,Yes
+epl_coverage_desired,Yes
+hr_department,Yes
+hr_manual_written_guidelines,Yes
+labor_counsel_reviewed_guidelines,Yes
+employee_handbook,Yes
+anti_discrimination_harassment_policies,Yes
+formal_complaint_process,Yes
+non_retaliation_policy,Yes
+employment_matters_inhouse_counsel,No
+employment_matters_outside_counsel,Yes
+fiduciary_coverage_desired,No
+commercial_crime_coverage_desired,No
+cyber_coverage_desired,Yes
+annual_risk_assessment,Yes
+confidential_data_encrypted,Yes
+patch_management_process,Yes
+formal_info_security_policy,Yes
+cybersecurity_training,Yes
+business_continuity_plan,Yes
+bcp_tested_annually,Yes
+prior_system_outage,Yes
+declaration_rep_name,Elena Martinez
+declaration_title,Chief Financial Officer
+declaration_date,07/08/2026
+declaration_applicant,Harbor Community Health Alliance
+source_file,3_1_Harbor_Community_Health_Alliance.pdf

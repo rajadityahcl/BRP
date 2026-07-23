@@ -1,0 +1,178 @@
+SUBMISSION ANALYTICS - BUILD NOTES (HIGH LEVEL)
+===============================================
+
+WHAT IT IS
+----------
+A Streamlit app for specialty insurance underwriting, with four tabs:
+Ingestion, Insights, Visualisation, and Recommendations + Chat.
+
+Stack: Streamlit -> SQLAlchemy -> MariaDB, with a local LLM served by
+Ollama. Everything runs locally; no data leaves the machine.
+
+
+STEP 1 - SCAFFOLD THE APP
+-------------------------
+Built the core files:
+
+  app.py        Streamlit UI, four tabs
+  db.py         SQLAlchemy engines and query helpers
+  llm.py        Ollama calls, text-to-SQL, recommendations
+  ingestion.py  CSV/PDF reading, validation, loading
+  parsers.py    Deterministic D&O application parser
+
+Decided against FastAPI for the MVP - Streamlit talks to the database
+directly.
+
+
+STEP 2 - SET UP THE DATABASE
+----------------------------
+Created two MariaDB users:
+
+  app_user       SELECT, INSERT, CREATE  (used by ingestion)
+  readonly_user  SELECT only             (used by the chat assistant)
+
+The read-only user is a hard safety backstop. Even if the SQL validation
+were bypassed, the assistant physically cannot write to the database.
+
+Created the pdf_submission table (111 columns) via
+create_pdf_submission.sql.
+
+
+STEP 3 - BUILD THE PDF PARSER
+-----------------------------
+The D&O application is a fixed template, so it is parsed with rules and
+regex rather than an LLM. Result: 105 of 111 fields on the real test PDF.
+The 6 blanks are genuine - Fiduciary and Crime were not purchased, so
+there is no carrier data to extract.
+
+Why not use the LLM: phi3:mini timed out on CPU, and gave different
+answers for the same PDF on different runs. For a fixed form that is the
+wrong tool.
+
+The split:
+  Fixed forms          -> deterministic parser (reliable, auditable)
+  Unstructured text    -> LLM
+  Both                 -> human reviews an editable grid before commit
+
+Every load also writes a key/value CSV as an audit trail.
+
+
+STEP 4 - WIRE UP THE ASSISTANT
+------------------------------
+Two-call pattern for each question:
+  1. Model writes a SELECT statement
+  2. SQL is validated (SELECT only, no forbidden keywords, known tables,
+     forced LIMIT)
+  3. Query runs on the read-only engine
+  4. Model answers the question from the returned rows
+
+
+STEP 5 - FIX THE PROBLEMS THAT SHOWED UP
+----------------------------------------
+Connection failure
+  Typo in secrets.toml: "locahost" instead of "localhost". Use 127.0.0.1
+  to skip name resolution entirely.
+
+Row size too large (Error 1118)
+  106 columns at VARCHAR(255) with utf8mb4 = ~108KB, over InnoDB's 65,535
+  byte inline limit. Fixed by using VARCHAR(100) for most columns, TEXT
+  for the five long ones, and ROW_FORMAT=DYNAMIC.
+
+ReadTimeout after 120 seconds
+  phi3:mini cold-starting on CPU. Raised timeout to 600, set
+  keep_alive="30m" to hold the model in RAM, capped num_predict.
+  Pre-warm before demoing: ollama run phi3:mini "ready"
+
+"Multiple statements are not allowed"
+  The SQL extractor only stripped a trailing semicolon, but the model was
+  emitting "SELECT ...; plus an explanation". Fixed by keeping only the
+  first statement and cutting anything after a blank line.
+
+"Table submission_producta doesn't exist"
+  The allowed-tables list contained a name that was never real. The model
+  saw a phantom table in the prompt and joined against it. Fixed by
+  discovering the schema from information_schema at runtime instead of
+  hardcoding table names.
+
+"Query does not reference a known table" on every question
+  Schema discovery returned an empty list, and any() over an empty list is
+  always False, so everything failed identically. Root cause: the
+  read-only user lacked SELECT privileges, and information_schema only
+  shows tables the user can see. Fixed with a GRANT, a fallback to the
+  read-write engine, and error messages that state the actual problem.
+
+Nonsense joins
+  Asked "what's the nature of business for the applicant?" and the model
+  joined two unrelated tables and invented a column. Fixed structurally:
+  route each question to ONE table before generating SQL and show the
+  model only that table. It cannot join tables it never saw. Added a
+  self-correction retry that feeds the real database error back for one
+  more attempt.
+
+Streamlit would not start (KeyError: 'mariadb')
+  Duplicate [ollama] section in secrets.toml. TOML does not allow a
+  section header twice, so the whole file failed to parse. The real error
+  was at the top of the traceback, not the bottom.
+
+
+STEP 6 - ADD THE ANALYTICS VIEW
+-------------------------------
+The database already held a star schema: fact_submission (2.5M rows) plus
+seven dimensions, with raw -> stg -> qrt ETL layers.
+
+Small models are bad at star-schema joins, so created
+vw_submission_analytics - the fact table pre-joined to all seven
+dimensions into one wide flat table. The assistant queries that single
+view with no joins.
+
+Measures in the fact table are already numeric (CurrentPremium,
+CurrentLimit, AnnualRevenue, Bound), so aggregates work without casting.
+Bind rate is AVG(Bound).
+
+The same view is what Power BI should consume, so it does double duty.
+
+
+STEP 7 - ADD A SCHEMA DIAGNOSTIC
+--------------------------------
+Added an expander in the chat tab that lists every table and view the app
+can see, warns if the analytics view is missing, and has a refresh button
+to clear the cache. Turned a guessing game into a five-second check.
+
+
+RUNNING IT
+----------
+1. Create the users and run create_pdf_submission.sql and
+   create_analytics_view.sql in DBeaver.
+2. Fill in .streamlit/secrets.toml - exactly one [mariadb] section and one
+   [ollama] section. This file must be gitignored.
+3. ollama pull phi3:mini
+4. pip install -r requirements.txt
+5. ollama run phi3:mini "ready"   (pre-warm, separate terminal)
+6. streamlit run app.py
+
+
+QUESTIONS THAT WORK RELIABLY
+----------------------------
+Portfolio (hit the analytics view):
+  Show total premium by operating state
+  What's the average premium by product?
+  Which broker has the lowest bind rate?
+  How many submissions bound last quarter?
+
+Application (hit pdf_submission):
+  What's the nature of business for the applicant?
+  Which coverages did the applicant purchase?
+  Who signed the declaration and on what date?
+
+
+KNOWN LIMITATIONS
+-----------------
+- phi3:mini is small. Routing and the view raise the floor, but a 3.8B
+  model writing SQL will occasionally produce something odd.
+  qwen2.5-coder:7b is much better and is a one-line config change.
+- CPU inference is slow. Each answer is two LLM calls.
+- pdf_submission columns are all VARCHAR by design (raw document text
+  preserved for audit), so numeric comparisons there need casting. The
+  warehouse side is properly typed.
+- No authentication. Fine on localhost, not fine if exposed publicly -
+  the Ingestion tab writes to the database.

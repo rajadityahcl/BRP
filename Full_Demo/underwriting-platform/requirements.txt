@@ -1,0 +1,8 @@
+streamlit>=1.36
+sqlalchemy>=2.0
+pymysql>=1.1
+pandas>=2.2
+plotly>=5.22
+requests>=2.32
+pdfplumber>=0.11
+tabulate>=0.9
