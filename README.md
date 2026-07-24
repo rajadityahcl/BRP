@@ -6,25 +6,23 @@ underwriting questions in plain English.
 
 Streamlit · MariaDB · Ollama. No data leaves the host.
 
-![Solution design](solution_design.png)
-
 ## Tabs
 
-- **Intake** — upload a D&O application PDF, parsed into 111 fields, reviewed, loaded
-- **Insights** — profile any table (rows, nulls, dtypes, stats)
-- **Portfolio** — charts over the warehouse, plus a Power BI slot
-- **Assistant** — natural-language questions answered with generated SQL
+- **Intake** -upload a D&O application PDF, parsed into 111 fields, reviewed, loaded
+- **Insights** -profile any table (rows, nulls, dtypes, stats)
+- **Portfolio** -charts over the warehouse, plus a Power BI slot
+- **Assistant** -natural-language questions answered with generated SQL
 
 ## How it works
 
 **Extraction.** The D&O application is a fixed template, so it's parsed with rules
-and regex — 105/111 fields, deterministic and auditable. The LLM is reserved for
+and regex : 105/111 fields, deterministic and auditable. The LLM is reserved for
 unstructured text. Either way a human reviews an editable grid before commit, and
 every load writes a key/value CSV as an audit trail.
 
 **Storage.** `pdf_submission` holds the raw application (all VARCHAR, document text
-preserved). The warehouse is a star schema — `fact_submission` (2.5M rows) plus seven
-dimensions — flattened into `vw_submission_analytics` for querying and Power BI.
+preserved). The warehouse is a star schema -`fact_submission` (2.5M rows) plus seven
+dimensions : flattened into `vw_submission_analytics` for querying and Power BI.
 
 **Assistant.** Each question is routed to one table, the model generates a single
 `SELECT`, it's validated (SELECT only, forced LIMIT), then executed as a read-only
@@ -41,7 +39,7 @@ FLUSH PRIVILEGES;
 
 Run `create_pdf_submission.sql`, then `create_analytics_view.sql`.
 
-Create `.streamlit/secrets.toml` (one `[mariadb]`, one `[ollama]` section — gitignore it):
+Create `.streamlit/secrets.toml` (one `[mariadb]`, one `[ollama]` section -gitignore it):
 
 ```toml
 [mariadb]
@@ -69,10 +67,10 @@ streamlit run app.py
 
 ## Sample questions
 
-Portfolio — *total premium by operating state · average premium by product · which
+Portfolio : *total premium by operating state · average premium by product · which
 broker has the lowest bind rate*
 
-Application — *nature of business for the applicant · which coverages were purchased
+Application : *nature of business for the applicant · which coverages were purchased
 · who signed the declaration*
 
 ## Limitations
