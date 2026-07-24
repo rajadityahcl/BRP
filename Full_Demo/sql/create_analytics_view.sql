@@ -58,3 +58,10 @@ LEFT JOIN dim_date         d ON f.DateKey        = d.DateKey;
 --   SELECT COUNT(*) FROM vw_submission_analytics;
 --   SELECT AgentID, AVG(Bound) AS bind_rate, COUNT(*) AS submissions
 --     FROM vw_submission_analytics GROUP BY AgentID ORDER BY bind_rate ASC LIMIT 10;
+
+
+
+SELECT COUNT(*) FROM vw_submission_analytics;
+
+SELECT AgentID, AVG(Bound) AS bind_rate, COUNT(*) AS submissions
+FROM vw_submission_analytics GROUP BY AgentID ORDER BY bind_rate ASC LIMIT 10;
