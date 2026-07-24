@@ -8,21 +8,21 @@ Streamlit · MariaDB · Ollama. No data leaves the host.
 
 ## Tabs
 
-- **Intake** — upload a D&O application PDF, parsed into 111 fields, reviewed, loaded
-- **Insights** — profile any table (rows, nulls, dtypes, stats)
-- **Portfolio** — charts over the warehouse, plus a Power BI slot
-- **Assistant** — natural-language questions answered with generated SQL
+- **Intake** : upload a D&O application PDF, parsed into 111 fields, reviewed, loaded
+- **Insights** : profile any table (rows, nulls, dtypes, stats)
+- **Portfolio** : charts over the warehouse, plus a Power BI slot
+- **Assistant** : natural-language questions answered with generated SQL
 
 ## How it works
 
 **Extraction.** The D&O application is a fixed template, so it's parsed with rules
-and regex — 105/111 fields, deterministic and auditable. The LLM is reserved for
+and regex : 105/111 fields, deterministic and auditable. The LLM is reserved for
 unstructured text. Either way a human reviews an editable grid before commit, and
 every load writes a key/value CSV as an audit trail.
 
 **Storage.** `pdf_submission` holds the raw application (all VARCHAR, document text
 preserved). The warehouse is a star schema — `fact_submission` (2.5M rows) plus seven
-dimensions — flattened into `vw_submission_analytics` for querying and Power BI.
+dimensions : flattened into `vw_submission_analytics` for querying and Power BI.
 
 **Assistant.** Each question is routed to one table, the model generates a single
 `SELECT`, it's validated (SELECT only, forced LIMIT), then executed as a read-only
