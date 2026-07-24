@@ -6,8 +6,6 @@ underwriting questions in plain English.
 
 Streamlit · MariaDB · Ollama. No data leaves the host.
 
-![Solution design](solution_design.png)
-
 ## Tabs
 
 - **Intake** — upload a D&O application PDF, parsed into 111 fields, reviewed, loaded
@@ -69,10 +67,10 @@ streamlit run app.py
 
 ## Sample questions
 
-Portfolio — *total premium by operating state · average premium by product · which
+Portfolio : *total premium by operating state · average premium by product · which
 broker has the lowest bind rate*
 
-Application — *nature of business for the applicant · which coverages were purchased
+Application : *nature of business for the applicant · which coverages were purchased
 · who signed the declaration*
 
 ## Limitations
