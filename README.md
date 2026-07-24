@@ -8,10 +8,10 @@ Streamlit · MariaDB · Ollama. No data leaves the host.
 
 ## Tabs
 
-- **Intake** : upload a D&O application PDF, parsed into 111 fields, reviewed, loaded
-- **Insights** : profile any table (rows, nulls, dtypes, stats)
-- **Portfolio** : charts over the warehouse, plus a Power BI slot
-- **Assistant** : natural-language questions answered with generated SQL
+- **Intake** -upload a D&O application PDF, parsed into 111 fields, reviewed, loaded
+- **Insights** -profile any table (rows, nulls, dtypes, stats)
+- **Portfolio** -charts over the warehouse, plus a Power BI slot
+- **Assistant** -natural-language questions answered with generated SQL
 
 ## How it works
 
