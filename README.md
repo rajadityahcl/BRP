@@ -21,7 +21,7 @@ unstructured text. Either way a human reviews an editable grid before commit, an
 every load writes a key/value CSV as an audit trail.
 
 **Storage.** `pdf_submission` holds the raw application (all VARCHAR, document text
-preserved). The warehouse is a star schema — `fact_submission` (2.5M rows) plus seven
+preserved). The warehouse is a star schema -`fact_submission` (2.5M rows) plus seven
 dimensions : flattened into `vw_submission_analytics` for querying and Power BI.
 
 **Assistant.** Each question is routed to one table, the model generates a single
@@ -39,7 +39,7 @@ FLUSH PRIVILEGES;
 
 Run `create_pdf_submission.sql`, then `create_analytics_view.sql`.
 
-Create `.streamlit/secrets.toml` (one `[mariadb]`, one `[ollama]` section — gitignore it):
+Create `.streamlit/secrets.toml` (one `[mariadb]`, one `[ollama]` section -gitignore it):
 
 ```toml
 [mariadb]
